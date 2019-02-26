@@ -6,7 +6,7 @@ COPY src/package*.json ./
 
 RUN npm install
 # Bundle App code
-COPY . .
+COPY src/ .
 # Export port 8080 from inside the container
 EXPOSE 8080
 # start the node package manager
