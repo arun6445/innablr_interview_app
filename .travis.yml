@@ -1,6 +1,25 @@
 language: node_js
 version:
-- stable
+  - stable
+sudo: required
+services:
+  - docker
+
 env:
+  global:
+    - IMAGE_NAME=arun6445/innablr_interview_app
   matrix:
-    secure: j+Q0piS3Y6HskvUkkZeFL1rbxjui02GRC3aDSRnfgg3JGu2iKr60YFBGXiVTFE6Nv0nQwm9+J3z3rPsP9DGuGCw4jJoHKoa7vAZsF2cgaYAz1KwCwrWJPNHoMZOOyb7+AlgJ9qucEkNTgF1EXMrvTsGx7z7v1d7SzkM3XLrM2Y8Z6Rvk6zVynb6eZnBNBEk7TTVPl64KJzWzDBvKG1aEsEI8p3onhZ69i3EuKFS3jnpo6QuYGjWdn8aaTWK8UwPscoEiNwYc8Lvi0zf2zxibiAn7cpOgwGSARKMVr0Z9QufaUhkCPFv9YETKNixwcTjkJp0L3qFax4ce69iidEN5afoVJUJdB8c1M7qJbrk5E7YeuLuAwuZTHE5clpLH3QmOZCWDGlNBVQY5OGQBk9zzzU7KI4lkxmuERA+f27kX4sO9o0FMzNI44Qek5arTBCRT8ys54G5LGgKRDP+0JUsq7aIcjp2bmVnNSmZaifUEyleH/XZz227zqq7VU1XHLAz8UBjrRHd68+u91oasT/ZAdUsVKbcI95LKohch4J3NyceTMQIAzJNncu7j4sqoDed0F3Igb1zXQ+pOJ9DC37APo9x4IZw9Tw6s44DsRO1bo/ayILE+1UsMOf464XWY7HBW1pLtmf5TEHIbZm70z1mSOdmWz4ujk8TvXVqW240w2UI=
+    - secure: CJ9JLqYcMzyESXlrtzMmVcz0SVul1hyrUo2EKoxiLik0E1/ongn/Cw2WYh8f3k+kqdDj1+L5Byh4qxtpAoMVNtdVDYJ+PdBpS+ey0DeT99T85RVdafZULXbkzrUaNPVqCnyshbP6XaP5CtnyWdWpWnDEbm4XSW1pUWLoPhgaUS3PFNcePPNr0YnTajF6DS2ut56ldot8FLqBJrsturNUqg3FKQxxildz7Kjl4JMtF/1wA83Y0UMXuhMvPXsEhG20kuys8zt3hyq9JnUk0sXgcLDG5hkjtLwVOm0i+VVu7aTNAE+Zu5C9YaZr3q4VRJuE067c5k2LT2KDUz/mEz+/XnbIA0ymR5b8CI4K5VwVz0bobTsJfqhNDSuIXyk97xg4LHbVTuqC7w20jfrafITvN8GfgeE0cRyQPXYq/lT3t29CvkxXrp4/yClCBDysS9q3CNVR+gggudB7lEBuL3FgjDcp28Hpibx2q9zSuao6fLiFHXQ8UACgxu4D5YaPblI3I8ACTfB/wd8Rq6S3XmBxH7ISa7pWe4bKJMBJ9YCXDxv12hVVN2JpDwXKelLGUdsxTYpiPDs6jM9xDCoRaLDKPGjBzwJiuQY/eSwg7QLlJ13QHPX91D961tetZ3RFDJdzAwfSZIFOZOHTTBCs1qzvALEskVHAxMhEFM+Pb5rvBeY=
+    - secure: X9pX+utZcxcIUbCfOYtTEm0qoUdRwODbBylFsP7yYRcMicUn/y+heDp4vvBF7FgHR6WG07IGIzw/W4Lb8TPFqPfzUkL0PZNFMNclBCBezdAyqpZqOFsGxhQxWsj9ePdmDQVa7AWBinj+CpD1v1TBeZVbtFGtn8VRL5w3a0BFDCuDvaFJkDuBc6He4PuYUbsZokCoolPbdn63ZGPTgJQOef33/j08qZtucBo1bknSGeDSPPHiPSpmC1GsHxsle17BOsX74xS2umYHGuUYMnZp+FhzfuYP3OhOftreu7QtEPiUn2QeJ0TtOvfaynGrm+VFmFXIK0kJpn25jv73+xQ/DKzjkXZmemHx9QY2gzpCSJw0lxq300jaZyE0D7smxLHH+uZWK0p77X/Q0zXFzxZkpXa59Jqm8W1G/xWgu0F2k40eaFdMsfo++qAdNTJg2wnLkpWDQNrhtqtmSMEyEbDc5F5p6wExLalOgfrEvwwAIektDnpSXZw1FlEb/NGIiqooPVaj50KUTA9mCRUi9ADHxSYZz+menIWRX+8TuWw6wHX5O+XszTaYUO4rIB1GqO3M1aUZhYFATrQ86Dj39h9Tw6FrTP+bX5KjLVK27S3w09LWPzZ9DY78p5PhFxnNm4EohB3AQm2x9bcRjpGLM1DnXofX3v4GaRu84YcVA67ofIU=
+
+before_install:
+  - docker pull ${IMAGE_NAME} || true
+  - docker build --pull --cache-from ${IMAGE_NAME} --tag ${IMAGE_NAME} .
+  - docker run -d -p 127.0.0.1:8080:80 ${IMAGE_NAME} -c ""
+  - docker ps -a
+
+deploy:
+  provider: script
+  script: bash docker_push
+  on:
+    branch: master
