@@ -14,9 +14,15 @@ env:
 before_install:
   - gem install rake
 
+stages:
+  - build
+  - test
+  - push docker image
+  - pull and deploy docker image
+
 jobs:
   include:
-    - stage: Build
+    - stage: build
       if: branch = master AND env($TRAVIS_PULL_REQUEST) = false
       script:
       - make build
