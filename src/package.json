@@ -1,0 +1,13 @@
+{
+    "name": "innablr_test_app",
+    "version": "1.0.0",
+    "description": "Simple app on Docker container",
+    "author": "Arun Gupta (arun6445@gmail.com)",
+    "main": "app.js",
+    "scripts": {
+      "start": "node app.js"
+    },
+    "dependencies": {
+      "express": "^4.16.1"
+    }
+  }
