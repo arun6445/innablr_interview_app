@@ -29,3 +29,4 @@ http://127.0.0.1:8080/
 
 http://127.0.0.1:8080/status
 
+When you make any changes to the GIT Repo and push the code to master branch, the Travis CI pipeline is triggered which build the environment and deploy the application inside the docker container.
