@@ -24,32 +24,20 @@ jobs:
   include:
     - stage: build
       if: branch = master AND env($TRAVIS_PULL_REQUEST) = false
-      script:
-      - make build
+      script: "make build"
 
     - stage: test
       script: echo "Run your test suite here"
 
     - stage: push docker image
       if: branch = master AND env($TRAVIS_PULL_REQUEST) = false
-      script: 
-      - make push_image
-      - if [ "$TRAVIS_BRANCH" = "master" ] && [ "$TRAVIS_PULL_REQUEST" = "false" ]; then
-        make build_and_push; else echo "Build process created on push to master branch."; fi
+      script: "make push_image"
+      # - if [ "$TRAVIS_BRANCH" = "master" ] && [ "$TRAVIS_PULL_REQUEST" = "false" ]; then
+      #   make build_and_push; else echo "Build process created on push to master branch."; fi
       
     - stage: pull and deploy docker image
       if: branch = master AND env($TRAVIS_PULL_REQUEST) = false
       env: 
       - HOST=127.0.0.1
-      script:
-      - make pull_and_deploy
+      script: "make pull_and_deploy"
 
-script:
-- if [ "$TRAVIS_BRANCH" = "master" ] && [ "$TRAVIS_PULL_REQUEST" = "false" ]; then
-  make build_and_push; else echo "Build process created on push to master branch."; fi
-
-deploy:
-  provider: script
-  script: if [ "$TRAVIS_BRANCH" = "master" ]; then  make pull_and_deploy; fi
-  on:
-    branch: master
