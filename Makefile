@@ -6,10 +6,10 @@ CONTAINER_PORT=8080
 
 SHA := $(shell git rev-parse --short HEAD)
 HOST := $(if $(HOST),$(HOST),127.0.0.1)
-build: dockerbuild docker_deploy
-push_image: dockerpush
-build_and_push: dockerbuild dockerpush 
-pull_and_deploy: dockerpull docker_deploy
+build: docker_build docker_deploy
+push_image: docker_push
+build_and_push: docker_build docker_push 
+pull_and_deploy: docker_pull docker_deploy
 
 docker_login:
 	echo "$(DOCKER_PASSWORD)" | docker login -u "$(DOCKER_USERNAME)" --password-stdin
