@@ -2,7 +2,7 @@ FROM node:8
 MAINTAINER ArunGupta
 WORKDIR /usr/src/app
 
-COPY src/package*.json ./
+COPY package*.json ./
 
 RUN npm install
 # Bundle App code
