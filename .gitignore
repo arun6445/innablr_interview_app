@@ -1,0 +1,5 @@
+node_modules
+./node_modules
+.env
+.travis.1.yml
+package-lock.json

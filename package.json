@@ -1,0 +1,27 @@
+{
+  "name": "innablr_interview_app",
+  "version": "1.0.0",
+  "description": "Simple app on Docker container",
+  "author": "Arun Gupta (arun6445@gmail.com)",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "^4.16.1",
+    "dotenv": "^2.0.0"
+  },
+  "devDependencies": {
+    "del": "^2.2.2",
+    "dotenv": "^2.0.0",
+    "express": "^4.16.1",
+    "gulp": "^3.9.1",
+    "gulp-cli": "1.2.2",
+    "gulp-install": "^0.6.0",
+    "gulp-istanbul": "1.1.1",
+    "gulp-jasmine": "^2.4.2",
+    "gulp-zip": "^3.2.0",
+    "jasmine-node": "^1.14.5",
+    "run-sequence": "^1.2.2"
+  }
+}
